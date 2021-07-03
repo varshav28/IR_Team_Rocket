@@ -11,7 +11,7 @@
 
   </head>
   <body>
-
+  
   <div class="container">
     <div style="background:transparent !important" class="jumbotron">
         <div style="font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif">
@@ -50,8 +50,11 @@
     </tbody>
 {% endfor %}
   </table>
-
+  <form action="/search/results/more" method="post">
+    <button class="btn btn-primary btn-lg"  type="submit" name="loadmore" value="Load More">Load More</button>
+  </form>
       </div>
+      <br><br>
     </div>
   </body>
 </html>
