@@ -48,7 +48,8 @@ from sklearn.metrics.pairwise import linear_kernel
 w_tokenizer = nltk.tokenize.WhitespaceTokenizer()
 lemmatizer = nltk.stem.WordNetLemmatizer()
 
-data = pd.read_pickle("processed_data_2.pkl")
+data = pd.read_pickle("processed_data_small.pkl")
+data = data.filter(['id', 'title'])
 print("loaded processed data 2")
 df = pd.read_pickle("proc_sentences.pkl")
 print("loaded proc sentences")
@@ -77,6 +78,8 @@ def query_text(query):
 	d = d.sort_values(by = ['Sim'], ascending = False)
 	result = d[['id','title']]
 	return result
+
+
 
 #variables
 #data = pd.read_pickle("processed_data_2.pkl")

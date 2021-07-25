@@ -1,5 +1,7 @@
 from flask import Flask, render_template, request, redirect, url_for
-from query_final import query_text
+#from query_final import query_text
+from bm25test2 import query_text
+
 
 app = Flask(__name__)
 
