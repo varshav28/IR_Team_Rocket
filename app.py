@@ -1,7 +1,7 @@
 from flask import Flask, render_template, request, redirect, url_for
 #from query_final import query_text
-from bm25test2 import query_text
-
+from bertIR import query_text
+#Note change above to TF_IDF or bm25test2 or bertIR for trying different algorithms. There might be an installation time when you are running it for the first time for the various models
 
 app = Flask(__name__)
 

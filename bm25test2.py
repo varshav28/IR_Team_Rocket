@@ -1,8 +1,9 @@
 import numpy as np
 from sklearn.feature_extraction.text import TfidfVectorizer
 from scipy import sparse
+import time
 #https://gist.github.com/koreyou/f3a8a0470d32aa56b32f198f49a9f2b8
-
+start = time.time()
 class BM25(object):
     def __init__(self, b=0.75, k1=1.6):
         self.vectorizer = TfidfVectorizer(norm=None, smooth_idf=False)
@@ -11,11 +12,11 @@ class BM25(object):
 
     def fit(self, X):
         """ Fit IDF to documents X """
-        print("fitting vectorizer")
+
         self.vectorizer.fit(X)
-        print("done fitting vectorizer...now transforming doc")
+
         self.transformed = super(TfidfVectorizer, self.vectorizer).transform(X)
-        print("done transforming doc")
+
         self.avdl = self.transformed.sum(1).mean()
 
     def transform(self, q, X):
@@ -25,9 +26,9 @@ class BM25(object):
         # apply CountVectorizer
         #X = super(TfidfVectorizer, self.vectorizer).transform(X)
         len_X = self.transformed.sum(1).A1
-        print("transforming query")
+  
         q, = self.vectorizer.transform([q])
-        print("done transforming query")
+      
         assert sparse.isspmatrix_csr(q)
 
         # convert to csc for better column slicing
@@ -54,9 +55,7 @@ def preproc(query):
     query = ' '.join([text for text in query])
     return query
 def evaluate(result, target, top1 ,top3 , top5 ,top10 ,top30):
-    print(target)
-    print(list(result.head(10)["title"]))
-    ["title"]
+
     if target in list(result.head(30)["title"]):
         top30+=1
     if  target in list(result.head(10)["title"]):
@@ -70,8 +69,9 @@ def evaluate(result, target, top1 ,top3 , top5 ,top10 ,top30):
         top1+=1
     return top1,top3,top5,top10,top30
 
+print("Starting setup")
 bm25 = BM25()
-print(":loading data")
+print("Loading data")
 data = pd.read_pickle("processed_data_small.pkl")
 data = data.filter(['id', 'title'])
 df = pickle.load(open("proc_sentences.pkl",'rb'))
@@ -79,9 +79,10 @@ df = pickle.load(open("proc_sentences.pkl",'rb'))
 texts = df["Combine"]
 print("fitting data")
 bm25.fit(texts)
+print("Setup Complete")
 
 def query_text(query, qt = 150, start = 1):
-    print("Query is : " , query)
+    #print("Query is : " , query)
     
     order=bm25.transform(query, texts)
     sorted_order  = np.argsort(order)
@@ -91,3 +92,28 @@ def query_text(query, qt = 150, start = 1):
     d = d.sort_values(by=["Sim"], ascending=False)
     result=d[['id' ,'title']]
     return result
+def start_eval():#call this function to run all the evaluation
+    print("Starting BM25 evaluation....")
+
+    testcases = pd.read_csv("test.csv")
+    top1,top3,top5,top10 ,top30=0,0,0,0,0
+    start_test = time.time()
+    for i , j in testcases.iterrows():
+        testcases = pd.read_csv("test.csv")
+        query = j["QUERY"]
+        d = query_text(query)
+
+        result = d[['title']]
+        top1,top3,top5,top10 ,top30=evaluate(result, j["TITLE"] , top1,top3,top5,top10,top30)
+
+
+        #print(i, "\nThe top30 accuracy is " , top30 ,"\nThe top10 accuracy is " , top10 , " \nThe top5 accuracy is " , top5, " \nThe top3 accuracy is " , top3, "\nThe top1 accuracy is " , top1)
+    end_test = time.time()
+    print("BM25 EVALUATION RESULTS")
+    print("There are a total of " , i, " search queries to test")
+    print("\nThe top30 accuracy is " , top30 ,"\nThe top10 accuracy is " , top10 , " \nThe top5 accuracy is " , top5, " \nThe top3 accuracy is " , top3, "\nThe top1 accuracy is " , top1)
+    print("Total querying time is " , end_test-start_test, " seconds")
+    print("BM25 EVALUATION SUCCESSFUL")
+end = time.time()
+print("SET TIME FOR BM25 is " , end-start , " seconds")
+# start_eval()
