@@ -1,5 +1,6 @@
-This is our information retrieval project for 50.045 course. We have built a stack overflow search engine using Python.
 
+This is our information retrieval project for 50.045 course. We have built a stack overflow search engine using Python.
+PROJECT BY RAHUL PARTHASARATHY, VARSHA VENKATESH and GAURI SINGHAL.
 
 Install all the requirements from the requirements.txt file.
 
