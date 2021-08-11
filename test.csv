@@ -57,3 +57,45 @@ Number,QUERY,ID,TITLE
 56,shell script to remove substring matches from a split string,63759391,efficient / safe shell-script to remove all substring matches from a delimited split string?
 57,efficient shell script to remove sub string matches from an array of strings,63759391,efficient / safe shell-script to remove all substring matches from a delimited split string?
 58,how to add a div,63759270,How to add div under selected text in a div?
+59,return response from asynchronous call,14220321,How to return the response from an asynchronous call
+60,good R reproducible example,5963269,How to make a great R reproducible example
+61,How to prevent sql injection php,60174,How can I prevent SQL injection in PHP?
+62,compare two strings java,513832,How do I compare strings in Java?
+63,parse html in php,3577641,How do you parse and process HTML/XML in PHP?
+64,how to merge dataframes,1299871,"How to join (merge) data frames (inner, outer, left, right)"
+65,how to get query string in javascript,901115,How can I get query string values in JavaScript?
+66,Remove list items while iterating,1207406,How to remove items from a list while iterating?
+67,how to validate email with regex,201323,How can I validate an email address using a regular expression?
+68,how to center horizontally and vertically flexbox,19026884,Flexbox: center horizontally and vertically
+69,Pyigmure uploads dont show up in gallery,63759377,"Using PyImgur's documented way to upload, uploadsrefuse to show up in gallery"
+70,documentation for pyigmure upload to gallery not working,63759377,"Using PyImgur's documented way to upload, uploadsrefuse to show up in gallery"
+71,Uploads refuse to appear in gallery pyigmure,63759377,"Using PyImgur's documented way to upload, uploadsrefuse to show up in gallery"
+72,can i access a function variable outside it in swift 4,63759310,"Is it possible to access a variable created in a function, outside of that function in swift 4"
+73,"use a variable created inside a function, outside it",63759310,"Is it possible to access a variable created in a function, outside of that function in swift 5"
+74,malformedurlexception,63759161,Why does url with space gives me MalformedURLException?
+75,update frontend dynamically,63759016,How to get live updates from API and dynamically update data on frontend/client
+76,get live feedback from api to update frontend,63759016,How to get live updates from API and dynamically update data on frontend/client
+77,update client dynamically with updates from api,63759016,How to get live updates from API and dynamically update data on frontend/client
+78,vuetify color names to hexadecimal values in a vue component,63758550,How to translate Vuetify's material design color names into hexadecimal values in a Vue component?
+79,translate material design color names to hex vuetify,63758550,How to translate Vuetify's material design color names into hexadecimal values in a Vue component?
+80,python store values iteratively into an array,63758473,How to Call the output of an Iterative solution into an array at everytime step (Using Python)
+81,react elements should not stack,63758388,Is there a way to prevent React JS elements from stacking?
+82,how to shard discord bot,63758334,How can I shard a Discord bot in discord.py?
+83,initilize array of function pointers,63758003,How can I conveniently initialize array of function pointers?
+84,convenient way of creating an array of function pointers,63758003,How can I conveniently initialize array of function pointers?
+85,easy was to initialize array of function pointers,63758003,How can I conveniently initialize array of function pointers?
+86,R minimum number of changes to get 2 arrays with the same value,63752795,Minimum number of digit changes to get two arrays to have the same value. Please solve in R programm...
+87,implement admin approval for posting something,63752589,how to implement an admin approval system for posting blogs in pythondjango
+88,pythondjango how to get admin approval,63752589,how to implement an admin approval system for posting blogs in pythondjango
+89,run a function at a time inputted by the user,63752387,How to take time as a input from user in the form HHMM and then run a function at that time
+90,get time as input from user and call a function at that time,63752387,How to take time as a input from user in the form HHMM and then run a function at that time
+91,cost versus loss in machine learning,63752233,What is the difference between a cost function and a loss function in machine learning?
+92,ML difference between cost and loss function,63752233,What is the difference between a cost function and a loss function in machine learning?
+93,icons overflow when window is minimized,63751523,How to avoid the overflow of the icons while the windows size reduce to minimum
+94,stop icons from overflowing on minimize,63751523,How to avoid the overflow of the icons while the windows size reduce to minimum
+95,stacked bar chart settings matplotlib,63751280,Plot line on secondary axis with stacked bar chart - matplotlib
+96,plot on secondary axis matplotlib,63751280,Plot line on secondary axis with stacked bar chart - matplotlib
+97,click one component to trigger event in another svelte,63750996,How to click a button in one component and trigger an event in another component in Svelte?
+98,ios app that can control the screen even when running in the background,63750915,iOS App that controls the screen also when backgrounded
+99,"why is the python zip function not working properly, it doesnt append to list",63750840,"Python zip function performs abnormally, Cannot append to list properly"
+100,python zip wiorking abnormally,63750840,"Python zip function performs abnormally, Cannot append to list properly"
