@@ -115,7 +115,8 @@ def start_eval():#run this to start eval
 	print("Starting TFIDF evaluation....")
 	testcases = pd.read_csv("test.csv")
 	queryTFIDF_vector = pickle.load(open("querytfidf2.pickle" , "rb"))#TfidfVectorizer().fit(df["Combine"])
-	
+	MRR=0
+	denom=0
 	top1,top3,top5,top10 ,top30=0,0,0,0,0
 	start_test = time.time()
 	for i , j in testcases.iterrows():
@@ -129,15 +130,22 @@ def start_eval():#run this to start eval
 
 		result = d[['title']]
 		top1,top3,top5,top10 ,top30=evaluate(result, j["TITLE"] , top1,top3,top5,top10,top30)
-
+		try:
+			MRR+= 1/(1+list(result.head()["title"]).index(j["TITLE"]))
+			
+		except:
+			pass
 
 		#print(i, "\nThe top30 accuracy is " , top30 ,"\nThe top10 accuracy is " , top10 , " \nThe top5 accuracy is " , top5, " \nThe top3 accuracy is " , top3, "\nThe top1 accuracy is " , top1)
 	end_test = time.time()
+	print(i)
+	MRR = MRR/i
 	print("TFIDF EVALUATION RESULTS")
 	print("There are a total of " , i, " search queries to test")
 	print("\nThe top30 accuracy is " , top30 ,"\nThe top10 accuracy is " , top10 , " \nThe top5 accuracy is " , top5, " \nThe top3 accuracy is " , top3, "\nThe top1 accuracy is " , top1)
 	print("Total querying time is " , end_test-start_test, " seconds")
 	print("TFIDF EVALUATION SUCCESSFUL")
+	print("MRR is ", MRR)
 
 end = time.time()
 print("SET TIME FOR TFIDF is " , end-start , " seconds")

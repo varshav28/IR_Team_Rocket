@@ -41,6 +41,8 @@ top30 = 0
 def start_eval():#run this for evaluation
     print("Starting BERT evaluation....")
     top1,top3,top5,top10=0,0,0,0
+    MRR=0
+    denom=0
     top30 = 0
     testcases = pd.read_csv("test.csv")
     start_test = time.time()
@@ -51,14 +53,21 @@ def start_eval():#run this for evaluation
 
         result = d[['title']]
         top1,top3,top5,top10 ,top30=evaluate(result, j["TITLE"] , top1,top3,top5,top10,top30)
+        try:
+            MRR+= 1/(1+list(result.head()["title"]).index(j["TITLE"]))
+            denom+=1
+        except:
+            pass
     end_test=time.time()
-
+    print(i , denom)
+    MRR=MRR/i
         #print(i, "\nThe top30 accuracy is " , top30 ,"\nThe top10 accuracy is " , top10 , " \nThe top5 accuracy is " , top5, " \nThe top3 accuracy is " , top3, "\nThe top1 accuracy is " , top1)
     print("BERT EVALUATION RESULTS")
     print("There are a total of " , i, " search queries to test")
     print("\nThe top30 accuracy is " , top30 ,"\nThe top10 accuracy is " , top10 , " \nThe top5 accuracy is " , top5, " \nThe top3 accuracy is " , top3, "\nThe top1 accuracy is " , top1)
     print("Total querying time is " , end_test-start_test, " seconds")
     print("BERT EVALUATION SUCCESSFUL")
+    print("MRR is " , MRR)
 end = time.time()
 print("SET TIME FOR BERT is " , end-start , " seconds")
 # start_eval()

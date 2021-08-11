@@ -11,7 +11,7 @@ class BM25(object):
         self.k1 = k1
 
     def fit(self, X):
-        """ Fit IDF to documents X """
+
 
         self.vectorizer.fit(X)
 
@@ -20,22 +20,18 @@ class BM25(object):
         self.avdl = self.transformed.sum(1).mean()
 
     def transform(self, q, X):
-        """ Calculate BM25 between query q and documents X """
+
         b, k1, avdl = self.b, self.k1, self.avdl
 
-        # apply CountVectorizer
-        #X = super(TfidfVectorizer, self.vectorizer).transform(X)
+
         len_X = self.transformed.sum(1).A1
   
         q, = self.vectorizer.transform([q])
       
         assert sparse.isspmatrix_csr(q)
 
-        # convert to csc for better column slicing
         X = self.transformed.tocsc()[:, q.indices]
         denom = X + (k1 * (1 - b + b * len_X / avdl))[:, None]
-        # idf(t) = log [ n / df(t) ] + 1 in sklearn, so it need to be coneverted
-        # to idf(t) = log [ n / df(t) ] with minus 1
         idf = self.vectorizer._tfidf.idf_[None, q.indices] - 1.
         numer = X.multiply(np.broadcast_to(idf, X.shape)) * (k1 + 1)                                                          
         return (numer / denom).sum(1).A1
@@ -78,8 +74,11 @@ df = pickle.load(open("proc_sentences.pkl",'rb'))
 #fulldf = pd.read_pickle("processed_data_2.pkl")
 texts = df["Combine"]
 print("fitting data")
-bm25.fit(texts)
+bm25.fit(texts)#pickle.load(open("bm25encoded.pickle", 'rb'))#
 print("Setup Complete")
+# with open('bm25encoded.pickle', 'wb') as handle:
+#     pickle.dump(bm25, handle, protocol=pickle.HIGHEST_PROTOCOL)
+
 
 def query_text(query, qt = 150, start = 1):
     #print("Query is : " , query)
@@ -94,7 +93,8 @@ def query_text(query, qt = 150, start = 1):
     return result
 def start_eval():#call this function to run all the evaluation
     print("Starting BM25 evaluation....")
-
+    MRR=0
+    denom=0
     testcases = pd.read_csv("test.csv")
     top1,top3,top5,top10 ,top30=0,0,0,0,0
     start_test = time.time()
@@ -104,16 +104,24 @@ def start_eval():#call this function to run all the evaluation
         d = query_text(query)
 
         result = d[['title']]
+        
         top1,top3,top5,top10 ,top30=evaluate(result, j["TITLE"] , top1,top3,top5,top10,top30)
-
+        try:
+            MRR+= 1/(1+list(result.head()["title"]).index(j["TITLE"]))
+            denom+=1
+        except:
+            pass
 
         #print(i, "\nThe top30 accuracy is " , top30 ,"\nThe top10 accuracy is " , top10 , " \nThe top5 accuracy is " , top5, " \nThe top3 accuracy is " , top3, "\nThe top1 accuracy is " , top1)
     end_test = time.time()
+    print(i,denom)
+    MRR=MRR/i
     print("BM25 EVALUATION RESULTS")
     print("There are a total of " , i, " search queries to test")
     print("\nThe top30 accuracy is " , top30 ,"\nThe top10 accuracy is " , top10 , " \nThe top5 accuracy is " , top5, " \nThe top3 accuracy is " , top3, "\nThe top1 accuracy is " , top1)
     print("Total querying time is " , end_test-start_test, " seconds")
     print("BM25 EVALUATION SUCCESSFUL")
+    print("MRR IS ", MRR)
 end = time.time()
 print("SET TIME FOR BM25 is " , end-start , " seconds")
 # start_eval()
